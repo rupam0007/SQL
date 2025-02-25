@@ -1,0 +1,190 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Tue Feb 18 14:10:01 2025
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn boo3
+Enter password:
+ERROR:
+ORA-01017: invalid username/password; logon denied
+
+
+SQL> conn
+Enter user-name: b003
+Enter password:
+Connected.
+SQL> create TABLE CUSTOMER(ORDER_ID INT,CUSTOMER_ID INT,EMPLOY_ID INT,ORDER_DATE DOB,SHIP_ID INT,ADDRESS VARCHAR(50));
+create TABLE CUSTOMER(ORDER_ID INT,CUSTOMER_ID INT,EMPLOY_ID INT,ORDER_DATE DOB,SHIP_ID INT,ADDRESS VARCHAR(50))
+                                                                            *
+ERROR at line 1:
+ORA-00902: invalid datatype
+
+
+SQL> create TABLE CUSTOMER(ORDER_ID INT,CUSTOMER_ID INT,EMPLOY_ID INT,ORDER_DATE DATE,SHIP_ID INT,ADDRESS VARCHAR(50));
+create TABLE CUSTOMER(ORDER_ID INT,CUSTOMER_ID INT,EMPLOY_ID INT,ORDER_DATE DATE,SHIP_ID INT,ADDRESS VARCHAR(50))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create TABLE CUSTOMER_TABLE(ORDER_ID INT,CUSTOMER_ID INT,EMPLOY_ID INT,ORDER_DATE DATE,SHIP_ID INT,ADDRESS VARCHAR(50));
+
+Table created.
+
+SQL> INSERT INTO CUSTOMER_TABLE VALUES(10248,90,5,'07-APR-1996',3,'KOLKATA');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER_TABLE VALUES(10249,81,6,'07-MAY-1997',1,'ENGLAND');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER_TABLE VALUES(10250,34,4,'07-SEP-1996',2,'SATMILE');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER_TABLE VALUES(10251,84,3,'12-NOV-1995',1,'BHABANICHAK');
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER_TABLE VALUES(10252,76,4,'16-OCT-1997',2,'LONDON');
+
+1 row created.
+
+SQL> SET LINE 500;
+SQL> SELECT * FROM CUSTOMER_TABLE;
+
+  ORDER_ID CUSTOMER_ID  EMPLOY_ID ORDER_DAT    SHIP_ID ADDRESS
+---------- ----------- ---------- --------- ---------- --------------------------------------------------
+     10248          90          5 07-APR-96          3 KOLKATA
+     10249          81          6 07-MAY-97          1 ENGLAND
+     10250          34          4 07-SEP-96          2 SATMILE
+     10251          84          3 12-NOV-95          1 BHABANICHAK
+     10252          76          4 16-OCT-97          2 LONDON
+
+SQL> ALTER TABLE CUSTOMER_TABLE ADD COLUMN CUS_NAME VARCHAR(50);
+ALTER TABLE CUSTOMER_TABLE ADD COLUMN CUS_NAME VARCHAR(50)
+                               *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> ALTER TABLE CUSTOMER_TABLE ADD CUS_NAME VARCHAR(50);
+
+Table altered.
+
+SQL> UPDATE CUSTOMER_TABLE SET CUS_NAME='RUPAM GIRI' WHERE ORDER_ID=10248;
+
+1 row updated.
+
+SQL> UPDATE CUSTOMER_TABLE SET CUS_NAME='SAYAN MAITY' WHERE ORDER_ID=10249;
+
+1 row updated.
+
+SQL> UPDATE CUSTOMER_TABLE SET CUS_NAME='PALLAB MANDAL' WHERE ORDER_ID=10250;
+
+1 row updated.
+
+SQL> UPDATE CUSTOMER_TABLE SET CUS_NAME='RANJIT DAS' WHERE ORDER_ID=10251;
+
+1 row updated.
+
+SQL> UPDATE CUSTOMER_TABLE SET CUS_NAME='RUPANKAR DAS' WHERE ORDER_ID=10252;
+
+1 row updated.
+
+SQL> SELECT CUS_NAME FROM CUSTOMER_TABLE WHERE ORDER_DATE BETWEEN '12-NOV-1995' AND '07-SEP-1996';
+
+CUS_NAME
+--------------------------------------------------
+RUPAM GIRI
+PALLAB MANDAL
+RANJIT DAS
+
+SQL> SELECT * FROM CUSTOMER_TABLE WHERE SHIP_ID IN(2,3);
+
+  ORDER_ID CUSTOMER_ID  EMPLOY_ID ORDER_DAT    SHIP_ID ADDRESS                                            CUS_NAME
+---------- ----------- ---------- --------- ---------- -------------------------------------------------- --------------------------------------------------
+     10248          90          5 07-APR-96          3 KOLKATA                                            RUPAM GIRI
+     10250          34          4 07-SEP-96          2 SATMILE                                            PALLAB MANDAL
+     10252          76          4 16-OCT-97          2 LONDON                                             RUPANKAR DAS
+
+SQL> SELECT * FROM CUSTOMER_TABLE WHERE ADDRESS IN('KOLKATA','LONDON');
+
+  ORDER_ID CUSTOMER_ID  EMPLOY_ID ORDER_DAT    SHIP_ID ADDRESS                                            CUS_NAME
+---------- ----------- ---------- --------- ---------- -------------------------------------------------- --------------------------------------------------
+     10248          90          5 07-APR-96          3 KOLKATA                                            RUPAM GIRI
+     10252          76          4 16-OCT-97          2 LONDON                                             RUPANKAR DAS
+
+SQL> SELECT * FROM CUSTOMER_TABLE WHERE ADDRESS NOT IN('KOLKATA','LONDON');
+
+  ORDER_ID CUSTOMER_ID  EMPLOY_ID ORDER_DAT    SHIP_ID ADDRESS                                            CUS_NAME
+---------- ----------- ---------- --------- ---------- -------------------------------------------------- --------------------------------------------------
+     10249          81          6 07-MAY-97          1 ENGLAND                                            SAYAN MAITY
+     10250          34          4 07-SEP-96          2 SATMILE                                            PALLAB MANDAL
+     10251          84          3 12-NOV-95          1 BHABANICHAK                                        RANJIT DAS
+
+SQL> SELECT * FROM CUSTOMER_TABLE WHERE EMPLOY_ID BETWEEN 3 AND 6;
+
+  ORDER_ID CUSTOMER_ID  EMPLOY_ID ORDER_DAT    SHIP_ID ADDRESS                                            CUS_NAME
+---------- ----------- ---------- --------- ---------- -------------------------------------------------- --------------------------------------------------
+     10248          90          5 07-APR-96          3 KOLKATA                                            RUPAM GIRI
+     10249          81          6 07-MAY-97          1 ENGLAND                                            SAYAN MAITY
+     10250          34          4 07-SEP-96          2 SATMILE                                            PALLAB MANDAL
+     10251          84          3 12-NOV-95          1 BHABANICHAK                                        RANJIT DAS
+     10252          76          4 16-OCT-97          2 LONDON                                             RUPANKAR DAS
+
+SQL> SELECT * FROM CUSTOMER_TABLE WHERE ORDER_DATE='12-NOV-1995' AND EMPLOY_ID=4;
+
+no rows selected
+
+SQL> SELECT * FROM CUSTOMER_TABLE WHERE ORDER_DATE='16-OCT-1997' AND EMPLOY_ID=4;
+
+  ORDER_ID CUSTOMER_ID  EMPLOY_ID ORDER_DAT    SHIP_ID ADDRESS                                            CUS_NAME
+---------- ----------- ---------- --------- ---------- -------------------------------------------------- --------------------------------------------------
+     10252          76          4 16-OCT-97          2 LONDON                                             RUPANKAR DAS
+
+SQL> SELECT * FROM CUSTOMER_TABLE WHERE SHIP_ID=3 OR SHIP_ID=2;
+
+  ORDER_ID CUSTOMER_ID  EMPLOY_ID ORDER_DAT    SHIP_ID ADDRESS                                            CUS_NAME
+---------- ----------- ---------- --------- ---------- -------------------------------------------------- --------------------------------------------------
+     10248          90          5 07-APR-96          3 KOLKATA                                            RUPAM GIRI
+     10250          34          4 07-SEP-96          2 SATMILE                                            PALLAB MANDAL
+     10252          76          4 16-OCT-97          2 LONDON                                             RUPANKAR DAS
+
+SQL> ALTER TABLE CUSTOMER_TABLE RENAME ADDRESS TO CUSTOMER_CITY;
+ALTER TABLE CUSTOMER_TABLE RENAME ADDRESS TO CUSTOMER_CITY
+                                  *
+ERROR at line 1:
+ORA-14155: missing PARTITION or SUBPARTITION keyword
+
+
+SQL> ALTER TABLE CUSTOMER_TABLE RENAME COLUMN ADDRESS TO CUSTOMER_CITY;
+
+Table altered.
+
+SQL> SELECT * FROM CUSTOMER_TABLE;
+
+  ORDER_ID CUSTOMER_ID  EMPLOY_ID ORDER_DAT    SHIP_ID CUSTOMER_CITY                                      CUS_NAME
+---------- ----------- ---------- --------- ---------- -------------------------------------------------- --------------------------------------------------
+     10248          90          5 07-APR-96          3 KOLKATA                                            RUPAM GIRI
+     10249          81          6 07-MAY-97          1 ENGLAND                                            SAYAN MAITY
+     10250          34          4 07-SEP-96          2 SATMILE                                            PALLAB MANDAL
+     10251          84          3 12-NOV-95          1 BHABANICHAK                                        RANJIT DAS
+     10252          76          4 16-OCT-97          2 LONDON                                             RUPANKAR DAS
+
+SQL> UPDATE CUSTOMER_TABLE SET CUSTOMER_CITY='INDIA' WHERE CUSTOMER_CITY='LONDON';
+
+1 row updated.
+
+SQL> SELECT * FROM CUSTOMER_TABLE;
+
+  ORDER_ID CUSTOMER_ID  EMPLOY_ID ORDER_DAT    SHIP_ID CUSTOMER_CITY                                      CUS_NAME
+---------- ----------- ---------- --------- ---------- -------------------------------------------------- --------------------------------------------------
+     10248          90          5 07-APR-96          3 KOLKATA                                            RUPAM GIRI
+     10249          81          6 07-MAY-97          1 ENGLAND                                            SAYAN MAITY
+     10250          34          4 07-SEP-96          2 SATMILE                                            PALLAB MANDAL
+     10251          84          3 12-NOV-95          1 BHABANICHAK                                        RANJIT DAS
+     10252          76          4 16-OCT-97          2 INDIA                                              RUPANKAR DAS
+
+SQL>

@@ -1,0 +1,323 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Tue Feb 25 14:29:35 2025
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> SELECT * FROM STUDENT;
+SP2-0640: Not connected
+SQL> CONN B003
+Enter password:
+Connected.
+SQL> SELECT * FROM STUDENT;
+
+STU_ID     STU_ADDRESS          BIRTH_DAY NAME
+---------- -------------------- --------- --------------------
+100D       TAMLUK               22-FEB-04 AMAL
+100E       KOLKATA              25-MAR-05 SAHELI
+100F       NADIA                26-MAR-05 RAM
+100H       SHILIGURI            20-NOV-01 KARAN
+
+SQL> SELECT * FROM STUDENT_DETAILS;
+SELECT * FROM STUDENT_DETAILS
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> CREATE TABLE STUDENT_DETAILS(ROLL INT,NAME VARCHAR(20),ADDRESS VARCHAR(50),DOB DATE,SUBJECT VARCHAR(20));
+
+Table created.
+
+SQL> INSERT INTO STUDENT_DETAILS VALUES(1,'ARUN DAS','DIHIBIRKUL','20-APR-2004','BENGALI');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_DETAILS VALUES(2,'NAINA JANA','RAMNAGAR','20-JAN-2003','ENGLISH');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_DETAILS VALUES(3,'PALLAB MANDAL','DIMONDHARBAR','12-JAN-2002','MATH');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_DETAILS VALUES(4,'SAYAN MAITY','CONTAI','12-JAN-2002','ENGLISH');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_DETAILS VALUES(5,'ARUP MAITY','LAHOR','12-DES-2003','HISTORY');
+INSERT INTO STUDENT_DETAILS VALUES(5,'ARUP MAITY','LAHOR','12-DES-2003','HISTORY')
+                                                          *
+ERROR at line 1:
+ORA-01843: not a valid month
+
+
+SQL> INSERT INTO STUDENT_DETAILS VALUES(5,'ARUP MAITY','LAHOR','12-DEC-2003','HISTORY');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_DETAILS VALUES(6,'AYAN DEY','DIGHA','02-SEP-2002','GEOGRAPHY');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_DETAILS VALUES(7,'LAXMAN ROY','FARIDPUR','04-AUG-2001','BIOLOGY');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_DETAILS VALUES(8,'ANANYA MAHATO','KOLKATA','22-AUG-2007','PHYSIC');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_DETAILS VALUES(9,'ARINDAM SAHOO','ALIPUR','20-MAY-2003','BENGALI');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT_DETAILS VALUES(10,'BIMAL JANA','LANDAN','15-FEB-2002','ENGLISH');
+
+1 row created.
+
+SQL> SELECT * FROM STUDENT_DETAILS;
+
+      ROLL NAME
+---------- --------------------
+ADDRESS                                            DOB
+-------------------------------------------------- ---------
+SUBJECT
+--------------------
+         1 ARUN DAS
+DIHIBIRKUL                                         20-APR-04
+BENGALI
+
+         2 NAINA JANA
+RAMNAGAR                                           20-JAN-03
+ENGLISH
+
+      ROLL NAME
+---------- --------------------
+ADDRESS                                            DOB
+-------------------------------------------------- ---------
+SUBJECT
+--------------------
+
+         3 PALLAB MANDAL
+DIMONDHARBAR                                       12-JAN-02
+MATH
+
+         4 SAYAN MAITY
+CONTAI                                             12-JAN-02
+
+      ROLL NAME
+---------- --------------------
+ADDRESS                                            DOB
+-------------------------------------------------- ---------
+SUBJECT
+--------------------
+ENGLISH
+
+         5 ARUP MAITY
+LAHOR                                              12-DEC-03
+HISTORY
+
+         6 AYAN DEY
+
+      ROLL NAME
+---------- --------------------
+ADDRESS                                            DOB
+-------------------------------------------------- ---------
+SUBJECT
+--------------------
+DIGHA                                              02-SEP-02
+GEOGRAPHY
+
+         7 LAXMAN ROY
+FARIDPUR                                           04-AUG-01
+BIOLOGY
+
+
+      ROLL NAME
+---------- --------------------
+ADDRESS                                            DOB
+-------------------------------------------------- ---------
+SUBJECT
+--------------------
+         8 ANANYA MAHATO
+KOLKATA                                            22-AUG-07
+PHYSIC
+
+         9 ARINDAM SAHOO
+ALIPUR                                             20-MAY-03
+BENGALI
+
+      ROLL NAME
+---------- --------------------
+ADDRESS                                            DOB
+-------------------------------------------------- ---------
+SUBJECT
+--------------------
+
+        10 BIMAL JANA
+LANDAN                                             15-FEB-02
+ENGLISH
+
+
+10 rows selected.
+
+SQL> SET LINE 500;
+SQL> SELECT * FROM STUDENT_DETAILS;
+
+      ROLL NAME                 ADDRESS                                            DOB       SUBJECT
+---------- -------------------- -------------------------------------------------- --------- --------------------
+         1 ARUN DAS             DIHIBIRKUL                                         20-APR-04 BENGALI
+         2 NAINA JANA           RAMNAGAR                                           20-JAN-03 ENGLISH
+         3 PALLAB MANDAL        DIMONDHARBAR                                       12-JAN-02 MATH
+         4 SAYAN MAITY          CONTAI                                             12-JAN-02 ENGLISH
+         5 ARUP MAITY           LAHOR                                              12-DEC-03 HISTORY
+         6 AYAN DEY             DIGHA                                              02-SEP-02 GEOGRAPHY
+         7 LAXMAN ROY           FARIDPUR                                           04-AUG-01 BIOLOGY
+         8 ANANYA MAHATO        KOLKATA                                            22-AUG-07 PHYSIC
+         9 ARINDAM SAHOO        ALIPUR                                             20-MAY-03 BENGALI
+        10 BIMAL JANA           LANDAN                                             15-FEB-02 ENGLISH
+
+10 rows selected.
+
+SQL> SELECT * FROM STUDENT_DETAILS WHERE NAME LIKE 'A%';
+
+      ROLL NAME                 ADDRESS                                            DOB       SUBJECT
+---------- -------------------- -------------------------------------------------- --------- --------------------
+         1 ARUN DAS             DIHIBIRKUL                                         20-APR-04 BENGALI
+         5 ARUP MAITY           LAHOR                                              12-DEC-03 HISTORY
+         6 AYAN DEY             DIGHA                                              02-SEP-02 GEOGRAPHY
+         8 ANANYA MAHATO        KOLKATA                                            22-AUG-07 PHYSIC
+         9 ARINDAM SAHOO        ALIPUR                                             20-MAY-03 BENGALI
+
+SQL> SELECT * FROM STUDENT_DETAILS WHERE NAME LIKE '%A';
+
+      ROLL NAME                 ADDRESS                                            DOB       SUBJECT
+---------- -------------------- -------------------------------------------------- --------- --------------------
+         2 NAINA JANA           RAMNAGAR                                           20-JAN-03 ENGLISH
+        10 BIMAL JANA           LANDAN                                             15-FEB-02 ENGLISH
+
+SQL> SELECT * FROM STUDENT_DETAILS WHERE NAME LIKE '%AN%';
+
+      ROLL NAME                 ADDRESS                                            DOB       SUBJECT
+---------- -------------------- -------------------------------------------------- --------- --------------------
+         2 NAINA JANA           RAMNAGAR                                           20-JAN-03 ENGLISH
+         3 PALLAB MANDAL        DIMONDHARBAR                                       12-JAN-02 MATH
+         4 SAYAN MAITY          CONTAI                                             12-JAN-02 ENGLISH
+         6 AYAN DEY             DIGHA                                              02-SEP-02 GEOGRAPHY
+         7 LAXMAN ROY           FARIDPUR                                           04-AUG-01 BIOLOGY
+         8 ANANYA MAHATO        KOLKATA                                            22-AUG-07 PHYSIC
+        10 BIMAL JANA           LANDAN                                             15-FEB-02 ENGLISH
+
+7 rows selected.
+
+SQL> SELECT * FROM STUDENT_DETAILS WHERE NAME LIKE '_A%';
+
+      ROLL NAME                 ADDRESS                                            DOB       SUBJECT
+---------- -------------------- -------------------------------------------------- --------- --------------------
+         2 NAINA JANA           RAMNAGAR                                           20-JAN-03 ENGLISH
+         3 PALLAB MANDAL        DIMONDHARBAR                                       12-JAN-02 MATH
+         4 SAYAN MAITY          CONTAI                                             12-JAN-02 ENGLISH
+         7 LAXMAN ROY           FARIDPUR                                           04-AUG-01 BIOLOGY
+
+SQL> SELECT * FROM STUDENT_DETAILS WHERE NAME LIKE '__A%';
+
+      ROLL NAME                 ADDRESS                                            DOB       SUBJECT
+---------- -------------------- -------------------------------------------------- --------- --------------------
+         6 AYAN DEY             DIGHA                                              02-SEP-02 GEOGRAPHY
+         8 ANANYA MAHATO        KOLKATA                                            22-AUG-07 PHYSIC
+
+SQL> SELECT * FROM STUDENT_DETAILS WHERE NAME LIKE 'A__%';
+
+      ROLL NAME                 ADDRESS                                            DOB       SUBJECT
+---------- -------------------- -------------------------------------------------- --------- --------------------
+         1 ARUN DAS             DIHIBIRKUL                                         20-APR-04 BENGALI
+         5 ARUP MAITY           LAHOR                                              12-DEC-03 HISTORY
+         6 AYAN DEY             DIGHA                                              02-SEP-02 GEOGRAPHY
+         8 ANANYA MAHATO        KOLKATA                                            22-AUG-07 PHYSIC
+         9 ARINDAM SAHOO        ALIPUR                                             20-MAY-03 BENGALI
+
+SQL> SELECT * FROM STUDENT_DETAILS WHERE NAME LIKE 'A___%';
+
+      ROLL NAME                 ADDRESS                                            DOB       SUBJECT
+---------- -------------------- -------------------------------------------------- --------- --------------------
+         1 ARUN DAS             DIHIBIRKUL                                         20-APR-04 BENGALI
+         5 ARUP MAITY           LAHOR                                              12-DEC-03 HISTORY
+         6 AYAN DEY             DIGHA                                              02-SEP-02 GEOGRAPHY
+         8 ANANYA MAHATO        KOLKATA                                            22-AUG-07 PHYSIC
+         9 ARINDAM SAHOO        ALIPUR                                             20-MAY-03 BENGALI
+
+SQL> SELECT * FROM STUDENT_DETAILS WHERE NAME LIKE 'A%O';
+
+      ROLL NAME                 ADDRESS                                            DOB       SUBJECT
+---------- -------------------- -------------------------------------------------- --------- --------------------
+         8 ANANYA MAHATO        KOLKATA                                            22-AUG-07 PHYSIC
+         9 ARINDAM SAHOO        ALIPUR                                             20-MAY-03 BENGALI
+
+SQL> SELECT NAME FROM STUDENT_DETAILS WHERE NAME LIKE 'A%O';
+
+NAME
+--------------------
+ANANYA MAHATO
+ARINDAM SAHOO
+
+SQL> SELECT DOB FROM STUDENT_DETAILS WHERE NAME LIKE 'A___%';
+
+DOB
+---------
+20-APR-04
+12-DEC-03
+02-SEP-02
+22-AUG-07
+20-MAY-03
+
+SQL> SELECT DOB FROM STUDENT_DETAILS WHERE NAME LIKE 'A__%';
+
+DOB
+---------
+20-APR-04
+12-DEC-03
+02-SEP-02
+22-AUG-07
+20-MAY-03
+
+SQL> SELECT NAME FROM STUDENT_DETAILS WHERE NAME LIKE '_A%';
+
+NAME
+--------------------
+NAINA JANA
+PALLAB MANDAL
+SAYAN MAITY
+LAXMAN ROY
+
+SQL> SELECT NAME FROM STUDENT_DETAILS WHERE NAME LIKE '%AN%';
+
+NAME
+--------------------
+NAINA JANA
+PALLAB MANDAL
+SAYAN MAITY
+AYAN DEY
+LAXMAN ROY
+ANANYA MAHATO
+BIMAL JANA
+
+7 rows selected.
+
+SQL> SELECT DOB FROM STUDENT_DETAILS WHERE NAME LIKE '%A';
+
+DOB
+---------
+20-JAN-03
+15-FEB-02
+
+SQL> SELECT * FROM STUDENT_DETAILS WHERE NAME LIKE 'A%';
+
+      ROLL NAME                 ADDRESS                                            DOB       SUBJECT
+---------- -------------------- -------------------------------------------------- --------- --------------------
+         1 ARUN DAS             DIHIBIRKUL                                         20-APR-04 BENGALI
+         5 ARUP MAITY           LAHOR                                              12-DEC-03 HISTORY
+         6 AYAN DEY             DIGHA                                              02-SEP-02 GEOGRAPHY
+         8 ANANYA MAHATO        KOLKATA                                            22-AUG-07 PHYSIC
+         9 ARINDAM SAHOO        ALIPUR                                             20-MAY-03 BENGALI
+
+SQL>
