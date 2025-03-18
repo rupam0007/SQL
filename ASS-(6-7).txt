@@ -1,0 +1,340 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Tue Mar 18 14:36:07 2025
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn b003
+Enter password:
+Connected.
+SQL> CREATE TABLE EMPLOYEE(ID INT,NAME VARCHAR(50),ADD VARCHAR(50),SALLARY INT,JOIN_DATE DATE);
+CREATE TABLE EMPLOYEE(ID INT,NAME VARCHAR(50),ADD VARCHAR(50),SALLARY INT,JOIN_DATE DATE)
+                                              *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> CREATE TABLE EMPLOYEE(ID INT,NAME VARCHAR(50),ADDRESS VARCHAR(50),SALLARY INT,JOIN_DATE DATE);
+
+Table created.
+
+SQL> INSERT INTO EMPLOYEE VALUES(1,'RUPAM','RAMNAGAR',20000,'12-JAN-2002');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES(2,'SAYAN','CONTAI',25000,'12-JAN-2004');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES(3,'PALLAB','KENEL',14000,'02-DEC-2000');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES(4,'PRITAM','FOTAPUR',12000,'15-FEB-2001');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES(5,'NILESH','MARISDA',40000,'20-FEB-2008');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES(6,'RAHUL','SADIKPUR',35000,'-JUN-2002');
+INSERT INTO EMPLOYEE VALUES(6,'RAHUL','SADIKPUR',35000,'-JUN-2002')
+                                                       *
+ERROR at line 1:
+ORA-01858: a non-numeric character was found where a numeric was expected
+
+
+SQL> INSERT INTO EMPLOYEE VALUES(6,'RAHUL','SADIKPUR',35000,'12-JUN-2002');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE VALUES(7,'KAIF','DIGHA',10000,'02-JUN-2012');
+
+1 row created.
+
+SQL> SELECT NAME,JOIN_DATE FROM EMPLOYEE;
+
+NAME                                               JOIN_DATE
+-------------------------------------------------- ---------
+RUPAM                                              12-JAN-02
+SAYAN                                              12-JAN-04
+PALLAB                                             02-DEC-00
+PRITAM                                             15-FEB-01
+NILESH                                             20-FEB-08
+RAHUL                                              12-JUN-02
+KAIF                                               02-JUN-12
+
+7 rows selected.
+
+SQL> SELECT SUM(SALLARY) AS T_SALLARY FROM EMPLOYEE;
+
+ T_SALLARY
+----------
+    156000
+
+SQL> SELECT MAX(SALLARY) AS MAX_SALLARY ,MIN(SALLARY) AS MIN_SALLAEY  FROM EMPLOYEE;
+
+MAX_SALLARY MIN_SALLAEY
+----------- -----------
+      40000       10000
+
+SQL> SELECT MAX(SALLARY) AS MAX_SALLARY  FROM EMPLOYEE WHERE ADDRESS = 'CONTAI';
+
+MAX_SALLARY
+-----------
+      25000
+
+SQL> SELECT MIN(SALLARY) AS LOWEST_PAYMENT  FROM EMPLOYEE;
+
+LOWEST_PAYMENT
+--------------
+         10000
+
+SQL> CREATE TABLE PRODUCT(P_ID INT,P_NAME VARCHAR(50),DESCRIPTION VARCHAR(50),M_DATE DATE,EX_DATE DATE,WARRANTY VARCHAR(50));
+
+Table created.
+
+SQL> INSERT INTO PRODUCT VALUES(1,'VASOLIN','LIP BUM','12-JAN-2006','12-JAN-2009','1 YEAR');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES(2,'REAL RUSNA','FRUIT JUICE','20-FAB-2006','20-FEB-2009','6 YEAR');
+INSERT INTO PRODUCT VALUES(2,'REAL RUSNA','FRUIT JUICE','20-FAB-2006','20-FEB-2009','6 YEAR')
+                                                        *
+ERROR at line 1:
+ORA-01843: not a valid month
+
+
+SQL> INSERT INTO PRODUCT VALUES(2,'REAL RUSNA','FRUIT JUICE','20-FEB-2006','20-FEB-2009','6 YEAR');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES(3,'RAJASTHANI KULFI','ICE CREAM','02-FEB-2004','02-FEB-20010','1 YEAR');
+INSERT INTO PRODUCT VALUES(3,'RAJASTHANI KULFI','ICE CREAM','02-FEB-2004','02-FEB-20010','1 YEAR')
+                                                                          *
+ERROR at line 1:
+ORA-01830: date format picture ends before converting entire input string
+
+
+SQL> INSERT INTO PRODUCT VALUES(3,'RAJASTHANI KULFI','ICE CREAM','02-FEB-2004','02-FEB-2010','1 YEAR');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES(4,'IPHONE15','MOBILE PHONE','10-AUG-2008','10-AUG-2012','6 MONTH');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES(5,'SUMSUNG GALAXY','LAPTOP','10-SEP-2002','10-SEP-2008','6 MONTH');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES(6,'AGNI4','WRITING','15-SEP-2002','15-SEP-2010','4 MONTH');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES(7,'MAMAEARTH','FACE WASH','22-OCT-2010','22-OCT-2013','2 YEAR');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES(8,'LUFA','BODY CHARE','22-OCT-2002','22-DEC-2005','1 YEAR');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES(9,'REALMI EIRBUDS','EIRPHONE','22-OCT-2012','22-DEC-2015','3 YEAR');
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT VALUES(10,'GARNIAR','SHAVING CREAM','30-OCT-2012','28-DEC-2015','1 YEAR');
+
+1 row created.
+
+SQL> SET LINE 500;
+SQL> SELECT * FROM PRODUCT;
+
+      P_ID P_NAME                                             DESCRIPTION                                        M_DATE    EX_DATE   WARRANTY
+---------- -------------------------------------------------- -------------------------------------------------- --------- --------- --------------------------------------------------
+         1 VASOLIN                                            LIP BUM                                            12-JAN-06 12-JAN-09 1 YEAR
+         2 REAL RUSNA                                         FRUIT JUICE                                        20-FEB-06 20-FEB-09 6 YEAR
+         3 RAJASTHANI KULFI                                   ICE CREAM                                          02-FEB-04 02-FEB-10 1 YEAR
+         4 IPHONE15                                           MOBILE PHONE                                       10-AUG-08 10-AUG-12 6 MONTH
+         5 SUMSUNG GALAXY                                     LAPTOP                                             10-SEP-02 10-SEP-08 6 MONTH
+         6 AGNI4                                              WRITING                                            15-SEP-02 15-SEP-10 4 MONTH
+         7 MAMAEARTH                                          FACE WASH                                          22-OCT-10 22-OCT-13 2 YEAR
+         8 LUFA                                               BODY CHARE                                         22-OCT-02 22-DEC-05 1 YEAR
+         9 REALMI EIRBUDS                                     EIRPHONE                                           22-OCT-12 22-DEC-15 3 YEAR
+        10 GARNIAR                                            SHAVING CREAM                                      30-OCT-12 28-DEC-15 1 YEAR
+
+10 rows selected.
+
+SQL> SELECT * FROM PRODUCT WHERE WARRANTY = '6 MONTH';
+
+      P_ID P_NAME                                             DESCRIPTION                                        M_DATE    EX_DATE   WARRANTY
+---------- -------------------------------------------------- -------------------------------------------------- --------- --------- --------------------------------------------------
+         4 IPHONE15                                           MOBILE PHONE                                       10-AUG-08 10-AUG-12 6 MONTH
+         5 SUMSUNG GALAXY                                     LAPTOP                                             10-SEP-02 10-SEP-08 6 MONTH
+
+SQL> SELECT * FROM PRODUCT WHERE WARRANTY = '1 YEAR';
+
+      P_ID P_NAME                                             DESCRIPTION                                        M_DATE    EX_DATE   WARRANTY
+---------- -------------------------------------------------- -------------------------------------------------- --------- --------- --------------------------------------------------
+         1 VASOLIN                                            LIP BUM                                            12-JAN-06 12-JAN-09 1 YEAR
+         3 RAJASTHANI KULFI                                   ICE CREAM                                          02-FEB-04 02-FEB-10 1 YEAR
+         8 LUFA                                               BODY CHARE                                         22-OCT-02 22-DEC-05 1 YEAR
+        10 GARNIAR                                            SHAVING CREAM                                      30-OCT-12 28-DEC-15 1 YEAR
+
+SQL> SELECT P_NAME FROM PRODUCT WHERE WARRANTY = '1 YEAR';
+
+P_NAME
+--------------------------------------------------
+VASOLIN
+RAJASTHANI KULFI
+LUFA
+GARNIAR
+
+SQL> SELECT P_NAME FROM PRODUCT  WHERE P_NAME LIKE 'REAL%';
+
+P_NAME
+--------------------------------------------------
+REAL RUSNA
+REALMI EIRBUDS
+
+SQL> SELECT P_NAME FROM PRODUCT  WHERE P_NAME LIKE '%XY';
+
+P_NAME
+--------------------------------------------------
+SUMSUNG GALAXY
+
+SQL> UPDATE PRODUCT SET WARRANTY='2 YEAR' WHEWRE WARRANTY='1 YEAR';
+UPDATE PRODUCT SET WARRANTY='2 YEAR' WHEWRE WARRANTY='1 YEAR'
+                                     *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> UPDATE PRODUCT SET WARRANTY='2 YEAR' WHERE WARRANTY='1 YEAR';
+
+4 rows updated.
+
+SQL> ALTER TABLE PRODUCT ADD PRICE INT;
+
+Table altered.
+
+SQL> UPDATE PRODUCT SET PRICE = 100 WHERE P_ID=1;
+
+1 row updated.
+
+SQL> UPDATE PRODUCT SET PRICE = 200 WHERE P_ID=2;
+
+1 row updated.
+
+SQL> UPDATE PRODUCT SET PRICE = 250 WHERE P_ID=3;
+
+1 row updated.
+
+SQL> UPDATE PRODUCT SET PRICE = 150 WHERE P_ID=4;
+
+1 row updated.
+
+SQL> UPDATE PRODUCT SET PRICE = 110 WHERE P_ID=5;
+
+1 row updated.
+
+SQL> UPDATE PRODUCT SET PRICE = 500 WHERE P_ID=6;
+
+1 row updated.
+
+SQL> UPDATE PRODUCT SET PRICE = 550 WHERE P_ID=7;
+
+1 row updated.
+
+SQL> UPDATE PRODUCT SET PRICE = 450 WHERE P_ID=8;
+
+1 row updated.
+
+SQL> UPDATE PRODUCT SET PRICE = 200 WHERE P_ID=9;
+
+1 row updated.
+
+SQL> UPDATE PRODUCT SET PRICE = 210 WHERE P_ID=10;
+
+1 row updated.
+
+SQL> SELECT * FROM PRODUCT;
+
+      P_ID P_NAME                                             DESCRIPTION                                        M_DATE    EX_DATE   WARRANTY
+                             PRICE
+---------- -------------------------------------------------- -------------------------------------------------- --------- --------- -------------------------------------------------- ----------
+         1 VASOLIN                                            LIP BUM                                            12-JAN-06 12-JAN-09 2 YEAR
+                               100
+         2 REAL RUSNA                                         FRUIT JUICE                                        20-FEB-06 20-FEB-09 6 YEAR
+                               200
+         3 RAJASTHANI KULFI                                   ICE CREAM                                          02-FEB-04 02-FEB-10 2 YEAR
+                               250
+         4 IPHONE15                                           MOBILE PHONE                                       10-AUG-08 10-AUG-12 6 MONTH
+                               150
+         5 SUMSUNG GALAXY                                     LAPTOP                                             10-SEP-02 10-SEP-08 6 MONTH
+                               110
+         6 AGNI4                                              WRITING                                            15-SEP-02 15-SEP-10 4 MONTH
+                               500
+         7 MAMAEARTH                                          FACE WASH                                          22-OCT-10 22-OCT-13 2 YEAR
+                               550
+         8 LUFA                                               BODY CHARE                                         22-OCT-02 22-DEC-05 2 YEAR
+                               450
+         9 REALMI EIRBUDS                                     EIRPHONE                                           22-OCT-12 22-DEC-15 3 YEAR
+                               200
+        10 GARNIAR                                            SHAVING CREAM                                      30-OCT-12 28-DEC-15 2 YEAR
+                               210
+
+10 rows selected.
+
+SQL> DELETE COLUMN EX_DATE;
+DELETE COLUMN EX_DATE
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> DELETE COLUMN EX_DATE FROM PRODUCT;
+DELETE COLUMN EX_DATE FROM PRODUCT
+       *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> ALTER TABLE PRODUCT DROP COLUMN EX_DATE;
+
+Table altered.
+
+SQL> SELECT * FROM PRODUCT;
+
+      P_ID P_NAME                                             DESCRIPTION                                        M_DATE    WARRANTY
+                   PRICE
+---------- -------------------------------------------------- -------------------------------------------------- --------- -------------------------------------------------- ----------
+         1 VASOLIN                                            LIP BUM                                            12-JAN-06 2 YEAR
+                     100
+         2 REAL RUSNA                                         FRUIT JUICE                                        20-FEB-06 6 YEAR
+                     200
+         3 RAJASTHANI KULFI                                   ICE CREAM                                          02-FEB-04 2 YEAR
+                     250
+         4 IPHONE15                                           MOBILE PHONE                                       10-AUG-08 6 MONTH
+                     150
+         5 SUMSUNG GALAXY                                     LAPTOP                                             10-SEP-02 6 MONTH
+                     110
+         6 AGNI4                                              WRITING                                            15-SEP-02 4 MONTH
+                     500
+         7 MAMAEARTH                                          FACE WASH                                          22-OCT-10 2 YEAR
+                     550
+         8 LUFA                                               BODY CHARE                                         22-OCT-02 2 YEAR
+                     450
+         9 REALMI EIRBUDS                                     EIRPHONE                                           22-OCT-12 3 YEAR
+                     200
+        10 GARNIAR                                            SHAVING CREAM                                      30-OCT-12 2 YEAR
+                     210
+
+10 rows selected.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL>
