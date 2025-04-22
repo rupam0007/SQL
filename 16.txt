@@ -1,0 +1,259 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Tue Apr 22 14:18:21 2025
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn b003
+Enter password:
+Connected.
+SQL> SELECT * FROM SALESMAN;
+
+      S_ID NAME
+---------- --------------------------------------------------
+CITY                                               COMMISSION
+-------------------------------------------------- ----------
+      5001 NAIL KNITE
+PARIS                                                      15
+
+      5002 JAMES HOOG
+NEW YORK                                                   15
+
+      5005 PIT ALEX
+LODON                                                      13
+
+
+      S_ID NAME
+---------- --------------------------------------------------
+CITY                                               COMMISSION
+-------------------------------------------------- ----------
+      5006 MC LYON
+PARIS                                                      14
+
+      5007 PAUL ADAM
+ROME                                                       13
+
+      5003 LAUSON HEN
+BRAZIL                                                     12
+
+
+6 rows selected.
+
+SQL> SET LINE 500;
+SQL> SELECT * FROM SALESMAN;
+
+      S_ID NAME                                               CITY                                               COMMISSION
+---------- -------------------------------------------------- -------------------------------------------------- ----------
+      5001 NAIL KNITE                                         PARIS                                                      15
+      5002 JAMES HOOG                                         NEW YORK                                                   15
+      5005 PIT ALEX                                           LODON                                                      13
+      5006 MC LYON                                            PARIS                                                      14
+      5007 PAUL ADAM                                          ROME                                                       13
+      5003 LAUSON HEN                                         BRAZIL                                                     12
+
+6 rows selected.
+
+SQL> SELECT * FROM CUSTOMER_INFO;
+
+      C_ID C_NAME                                             CITY                                                    GRADE       S_ID
+---------- -------------------------------------------------- -------------------------------------------------- ---------- ----------
+      3002 NIKE RIMEDO                                        NEW YORK                                                  100       5001
+      3007 BRAD DAVIS                                         NEW YORK                                                  200       5005
+      3005 GRAHAM ZUSI                                        CALIFORNIYA                                               200       5002
+      3004 JULIAN GREEN                                       LONDON                                                    300       5002
+      3008 FABIAN JOHONSON                                    PARIS                                                     200       5006
+      3010 GEOFF CAMRON                                       BERLIN                                                    100       5003
+      3009 JOZY ATTIDOR                                       MOSCOW                                                    200       5007
+      3003 BRAD GUZAN                                         LONDON                                                    100       5005
+
+8 rows selected.
+
+SQL> SELECT * FROM ORDER;
+SELECT * FROM ORDER
+              *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> SELECT * FROM ORDERS;
+
+    ORD_NO   P_AMOUNT   ORD_DATE       C_ID       S_ID
+---------- ---------- ---------- ---------- ----------
+     70008   17505760       1985       3002       5001
+     70010       1983       1992       3004       5006
+     70003       2480       1979       3009       5003
+     70012        250       1987       3008       5002
+     70011         75       1978       3003       5007
+     70013       3045       1992       3002       5001
+
+6 rows selected.
+
+SQL> INSER INTO ORDERS VALUES(70001,150,2012-10-5,3005,5002);
+SP2-0734: unknown command beginning "INSER INTO..." - rest of line ignored.
+SQL> INSERT INTO ORDERS VALUES(70001,150,2012-10-5,3005,5002);
+
+1 row created.
+
+SQL> INSERT INTO ORDERS VALUES(70009,270,2012-09-10,3001,5005);
+
+1 row created.
+
+SQL> INSERT INTO ORDERS VALUES(70002,65,2012-10-5,3002,5001);
+
+1 row created.
+
+SQL> INSERT INTO ORDERS VALUES(70007,110,2012-08-17,3009,5003);
+
+1 row created.
+
+SQL> INSERT INTO ORDERS VALUES(70005,2400,2012-07-27,3007,5001);
+
+1 row created.
+
+SQL> SELECT * FROM ORDERS;
+
+    ORD_NO   P_AMOUNT   ORD_DATE       C_ID       S_ID
+---------- ---------- ---------- ---------- ----------
+     70008   17505760       1985       3002       5001
+     70010       1983       1992       3004       5006
+     70003       2480       1979       3009       5003
+     70012        250       1987       3008       5002
+     70011         75       1978       3003       5007
+     70013       3045       1992       3002       5001
+     70001        150       1997       3005       5002
+     70009        270       1993       3001       5005
+     70002         65       1997       3002       5001
+     70007        110       1987       3009       5003
+     70005       2400       1978       3007       5001
+
+11 rows selected.
+
+SQL> SELECT C.C_ID,O.ORD_NO,O.ORD_DATE FROM C LEFT JOIN ORDERS ON C.C_ID = O.C_ID;
+SELECT C.C_ID,O.ORD_NO,O.ORD_DATE FROM C LEFT JOIN ORDERS ON C.C_ID = O.C_ID
+                                       *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> SELECT C.C_ID,O.ORD_NO,O.ORD_DATE FROM CUSTOMER_INFO LEFT JOIN ORDERS ON C.C_ID = O.C_ID;
+SELECT C.C_ID,O.ORD_NO,O.ORD_DATE FROM CUSTOMER_INFO LEFT JOIN ORDERS ON C.C_ID = O.C_ID
+                                                                                  *
+ERROR at line 1:
+ORA-00904: "O"."C_ID": invalid identifier
+
+
+SQL> SELECT C.C_ID,ORDERS.ORD_NO,ORSERS.ORD_DATE FROM CUSTOMER_INFO LEFT JOIN ORDERS ON C.C_ID = ORDERS.C_ID;
+SELECT C.C_ID,ORDERS.ORD_NO,ORSERS.ORD_DATE FROM CUSTOMER_INFO LEFT JOIN ORDERS ON C.C_ID = ORDERS.C_ID
+                                                                                   *
+ERROR at line 1:
+ORA-00904: "C"."C_ID": invalid identifier
+
+
+SQL> SELECT CUSTOMER_INFO.C_ID,ORDERS.ORD_NO,ORSERS.ORD_DATE FROM CUSTOMER_INFO LEFT JOIN ORDERS ON CUSTOMER_INFO.C_ID = ORDERS.C_ID;
+SELECT CUSTOMER_INFO.C_ID,ORDERS.ORD_NO,ORSERS.ORD_DATE FROM CUSTOMER_INFO LEFT JOIN ORDERS ON CUSTOMER_INFO.C_ID = ORDERS.C_ID
+                                        *
+ERROR at line 1:
+ORA-00904: "ORSERS"."ORD_DATE": invalid identifier
+
+
+SQL> SELECT CUSTOMER_INFO.C_ID,ORDERS.ORD_NO,ORDERS.ORD_DATE FROM CUSTOMER_INFO LEFT JOIN ORDERS ON CUSTOMER_INFO.C_ID = ORDERS.C_ID;
+
+      C_ID     ORD_NO   ORD_DATE
+---------- ---------- ----------
+      3002      70008       1985
+      3004      70010       1992
+      3009      70003       1979
+      3008      70012       1987
+      3003      70011       1978
+      3002      70013       1992
+      3005      70001       1997
+      3002      70002       1997
+      3009      70007       1987
+      3007      70005       1978
+      3010
+
+11 rows selected.
+
+SQL> SELECT C.C_NAME,C.CITY,O.ORD_DATE FROM CUSTOMER_INFO C LEFT JOIN ORDERS O ON C.C_ID = O.C_ID;
+
+C_NAME                                             CITY                                                 ORD_DATE
+-------------------------------------------------- -------------------------------------------------- ----------
+NIKE RIMEDO                                        NEW YORK                                                 1985
+JULIAN GREEN                                       LONDON                                                   1992
+JOZY ATTIDOR                                       MOSCOW                                                   1979
+FABIAN JOHONSON                                    PARIS                                                    1987
+BRAD GUZAN                                         LONDON                                                   1978
+NIKE RIMEDO                                        NEW YORK                                                 1992
+GRAHAM ZUSI                                        CALIFORNIYA                                              1997
+NIKE RIMEDO                                        NEW YORK                                                 1997
+JOZY ATTIDOR                                       MOSCOW                                                   1987
+BRAD DAVIS                                         NEW YORK                                                 1978
+GEOFF CAMRON                                       BERLIN
+
+11 rows selected.
+
+SQL> SELECT S.NAME,O.ORD_NO,O.ORD_DATE FROM SALESMAN S LEFT JOIN ORDERS O ON S.S_ID = O.S_ID;
+
+NAME                                                   ORD_NO   ORD_DATE
+-------------------------------------------------- ---------- ----------
+NAIL KNITE                                              70008       1985
+MC LYON                                                 70010       1992
+LAUSON HEN                                              70003       1979
+JAMES HOOG                                              70012       1987
+PAUL ADAM                                               70011       1978
+NAIL KNITE                                              70013       1992
+JAMES HOOG                                              70001       1997
+PIT ALEX                                                70009       1993
+NAIL KNITE                                              70002       1997
+LAUSON HEN                                              70007       1987
+NAIL KNITE                                              70005       1978
+
+11 rows selected.
+
+SQL> SELECT S.COMMISSION,O.P_AMOUNT FROM SALESMAN S LEFT JOIN ORDERS O ON S.S_ID = O.S_ID;
+
+COMMISSION   P_AMOUNT
+---------- ----------
+        15   17505760
+        14       1983
+        12       2480
+        15        250
+        13         75
+        15       3045
+        15        150
+        13        270
+        15         65
+        12        110
+        15       2400
+
+11 rows selected.
+
+SQL> SELECT S.CITY,O.ORD_NO,O.ORD FROM SALESMAN S LEFT JOIN ORDERS O ON S.S_ID = O.S_ID;
+SELECT S.CITY,O.ORD_NO,O.ORD FROM SALESMAN S LEFT JOIN ORDERS O ON S.S_ID = O.S_ID
+                       *
+ERROR at line 1:
+ORA-00904: "O"."ORD": invalid identifier
+
+
+SQL> SELECT S.CITY,O.ORD_NO,O.ORD_DATE FROM SALESMAN S LEFT JOIN ORDERS O ON S.S_ID = O.S_ID;
+
+CITY                                                   ORD_NO   ORD_DATE
+-------------------------------------------------- ---------- ----------
+PARIS                                                   70008       1985
+PARIS                                                   70010       1992
+BRAZIL                                                  70003       1979
+NEW YORK                                                70012       1987
+ROME                                                    70011       1978
+PARIS                                                   70013       1992
+NEW YORK                                                70001       1997
+LODON                                                   70009       1993
+PARIS                                                   70002       1997
+BRAZIL                                                  70007       1987
+PARIS                                                   70005       1978
+
+11 rows selected.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL>

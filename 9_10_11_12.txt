@@ -1,0 +1,371 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Tue Apr 1 14:28:28 2025
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn b003
+Enter password:
+Connected.
+SQL> CREATE TABLE CUSTOMERID(ID INT,AGE INT, ADDRESS VARCHAR(50), SALARY INT);
+
+Table created.
+
+SQL>  INSERT INTO CUSTOMERID VALUES(1,19,'CONTAI',4501);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMERID VALUES(2,20,'KOLKATA',4501);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMERID VALUES(3,27,'ODISHA',6000);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMERID VALUES(4,28,'DELHI',8000);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMERID VALUES(5,22,'MUMBAI',9000);
+
+1 row created.
+
+SQL> SET LINE 500;
+SQL> SELECT * FROM CUSTOMERID;
+
+        ID        AGE ADDRESS                                                SALARY
+---------- ---------- -------------------------------------------------- ----------
+         1         19 CONTAI                                                   4501
+         2         20 KOLKATA                                                  4501
+         3         27 ODISHA                                                   6000
+         4         28 DELHI                                                    8000
+         5         22 MUMBAI                                                   9000
+
+SQL> SELECT * FROM CUSTOMERID WHERE SALARY > 4500;
+
+        ID        AGE ADDRESS                                                SALARY
+---------- ---------- -------------------------------------------------- ----------
+         1         19 CONTAI                                                   4501
+         2         20 KOLKATA                                                  4501
+         3         27 ODISHA                                                   6000
+         4         28 DELHI                                                    8000
+         5         22 MUMBAI                                                   9000
+
+SQL> UPDATE CUSTOMERID SET SALARY = SALARY + 200 WHERE AGE >=27;
+
+2 rows updated.
+
+SQL> SELECT * FROM CUSTOMERID;
+
+        ID        AGE ADDRESS                                                SALARY
+---------- ---------- -------------------------------------------------- ----------
+         1         19 CONTAI                                                   4501
+         2         20 KOLKATA                                                  4501
+         3         27 ODISHA                                                   6200
+         4         28 DELHI                                                    8200
+         5         22 MUMBAI                                                   9000
+
+SQL> SELECT * FROM CUSTOMERID ORDER BY SALARY DESC;
+
+        ID        AGE ADDRESS                                                SALARY
+---------- ---------- -------------------------------------------------- ----------
+         5         22 MUMBAI                                                   9000
+         4         28 DELHI                                                    8200
+         3         27 ODISHA                                                   6200
+         1         19 CONTAI                                                   4501
+         2         20 KOLKATA                                                  4501
+
+SQL> SELECT * FROM CUSTOMERID ORDER BY ADDRESS DESC;
+
+        ID        AGE ADDRESS                                                SALARY
+---------- ---------- -------------------------------------------------- ----------
+         3         27 ODISHA                                                   6200
+         5         22 MUMBAI                                                   9000
+         2         20 KOLKATA                                                  4501
+         4         28 DELHI                                                    8200
+         1         19 CONTAI                                                   4501
+
+SQL> SELECT * FROM CUSTOMERID ORDER BY ADDRESS ;
+
+        ID        AGE ADDRESS                                                SALARY
+---------- ---------- -------------------------------------------------- ----------
+         1         19 CONTAI                                                   4501
+         4         28 DELHI                                                    8200
+         2         20 KOLKATA                                                  4501
+         5         22 MUMBAI                                                   9000
+         3         27 ODISHA                                                   6200
+
+SQL> 9;
+SP2-0226: Invalid line number
+SQL> CREATE TABLE EMPLOYEE(S_NO INT,NAME VARCHAR(50),SALLARY INT);
+CREATE TABLE EMPLOYEE(S_NO INT,NAME VARCHAR(50),SALLARY INT)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> CREATE TABLE EMP(S_NO INT,NAME VARCHAR(50),SALLARY INT);
+
+Table created.
+
+SQL> CREATE TABLE EMP(S_NO INT,NAME VARCHAR(50),AGE INT,SALLARY INT);
+CREATE TABLE EMP(S_NO INT,NAME VARCHAR(50),AGE INT,SALLARY INT)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> CREATE TABLE EMP1(S_NO INT,NAME VARCHAR(50),AGE INT,SALLARY INT);
+
+Table created.
+
+SQL> INSERT INTO EMP1 VALUES(1,'JOHN',22,50000);
+
+1 row created.
+
+SQL> INSERT INTO EMP1 VALUES(2,'NICK',23,44000);
+
+1 row created.
+
+SQL> INSERT INTO EMP1 VALUES(3,'AMAR',25,15000);
+
+1 row created.
+
+SQL>
+SQL> SELECT NAME,SALLARY FROM EMP1;
+
+NAME                                                  SALLARY
+-------------------------------------------------- ----------
+JOHN                                                    50000
+NICK                                                    44000
+AMAR                                                    15000
+
+SQL> CREATE TABLE EMP1(SUBJECT VARCHAR(50),YEAR VARCHAR(20),NAME VARCHAR(50));
+CREATE TABLE EMP1(SUBJECT VARCHAR(50),YEAR VARCHAR(20),NAME VARCHAR(50))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> CREATE TABLE STUDENT(SUBJECT VARCHAR(50),YEAR VARCHAR(20),NAME VARCHAR(50));
+CREATE TABLE STUDENT(SUBJECT VARCHAR(50),YEAR VARCHAR(20),NAME VARCHAR(50))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> CREATE TABLE STUDENT1(SUBJECT VARCHAR(50),YEAR VARCHAR(20),NAME VARCHAR(50));
+
+Table created.
+
+SQL> INSERT INTO STUDENT1 VALUES('C PROGRAMING','3','RANJIT');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('C PROGRAMING','3','PALLAB');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('C PROGRAMING','3','SAGAR');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('C PROGRAMING','2','KAIF');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('C PROGRAMING','2','ARPAN');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('JAVA','1','PRITAM');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT1 VALUES('JAVA','1','NAYAN');
+
+1 row created.
+
+SQL> SET LINE 500;
+SQL> SELECT SUBJECT,YEAR,COUNT(YEAR) AS COUNT GROUP BY YEAR;
+SELECT SUBJECT,YEAR,COUNT(YEAR) AS COUNT GROUP BY YEAR
+                                         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT SUBJECT,YEAR,COUNT(YEAR) AS COUNTGROUP BY YEAR;
+SELECT SUBJECT,YEAR,COUNT(YEAR) AS COUNTGROUP BY YEAR
+                                              *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> SELECT SUBJECT,YEAR,COUNT(*) AS COUNT FROM STUDENT1 GROUP BY SUBJECT,YEAR ORDER BY SUBJECT,YEAR;
+
+SUBJECT                                            YEAR                      COUNT
+-------------------------------------------------- -------------------- ----------
+C PROGRAMING                                       2                             2
+C PROGRAMING                                       3                             3
+JAVA                                               1                             2
+
+SQL> 10;
+SP2-0226: Invalid line number
+SQL> CREATE TABLE CUSTOMER1(ID INT,NAME VARCHAR(20),COUNTRY VARCHAR(20),AGE INT);
+CREATE TABLE CUSTOMER1(ID INT,NAME VARCHAR(20),COUNTRY VARCHAR(20),AGE INT)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> CREATE TABLE CUSTOMER10(ID INT,NAME VARCHAR(20),COUNTRY VARCHAR(20),AGE INT);
+
+Table created.
+
+SQL> INSER INTO CUSTOMER10 VALUES(1,'SUMAN','INDIA',20);
+SP2-0734: unknown command beginning "INSER INTO..." - rest of line ignored.
+SQL> INSERT INTO CUSTOMER10 VALUES(1,'SUMAN','INDIA',20);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER10 VALUES(2,'SAYAN','INDIA',25);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER10 VALUES(3,'PALLAB','ENGLAND',18);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER10 VALUES(4,'SURAJ','UK',20);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER10 VALUES(5,'KAIF','AUSTRALIA',21);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER10 VALUES(6,'SATTAM','UK',24);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER10 VALUES(7,'BIVAS','INDIA',20);
+
+1 row created.
+
+SQL> SELECT COUNTRY,COUNT(*) AS COUNT FROM CUSTOMER10 GROUP BY COUNTRY;
+
+COUNTRY                   COUNT
+-------------------- ----------
+INDIA                         3
+ENGLAND                       1
+AUSTRALIA                     1
+UK                            2
+
+SQL> SELECT COUNTRY,COUNT(*) AS COUNT FROM CUSTOMER10 GROUP BY COUNTRY HAVING COUNTRY(*)>3;
+SELECT COUNTRY,COUNT(*) AS COUNT FROM CUSTOMER10 GROUP BY COUNTRY HAVING COUNTRY(*)>3
+                                                                                 *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> SELECT COUNTRY,COUNT(*) AS COUNT FROM CUSTOMER10 GROUP BY COUNTRY HAVING COUNT(*)>3;
+
+no rows selected
+
+SQL> SELECT COUNTRY,COUNT(*) AS COUNT FROM CUSTOMER10 GROUP BY COUNTRY HAVING COUNT(*)>2;
+
+COUNTRY                   COUNT
+-------------------- ----------
+INDIA                         3
+
+SQL> CREATE TABLE EMPLOYEEID(E_ID INT, E_NAME VARCHAR(15), DEPT VARCHAR(10), SALARY INT);
+
+Table created.
+
+SQL> INSERT INTO EMPLOYEEID VALUES(1,'SAYAN','ACCOUNTS',9000);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEEID VALUES(2,'AYAN','SDE1',19000);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEEID VALUES(3,'NAYAN','SDE2',20000);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEEID VALUES(4,'TRINAYAN','SDE3',30000)
+  2  INSERT INTO EMPLOYEEID VALUES(4,'TRINAYAN','SDE3',30000);
+INSERT INTO EMPLOYEEID VALUES(4,'TRINAYAN','SDE3',30000)
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL> INSERT INTO EMPLOYEEID VALUES(4,'TRINAYAN','SDE3',30000);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEEID VALUES(5,'TRINAYANEE','SSDE',50000);
+
+1 row created.
+
+SQL> SELECT * FROM EMPLOYEEID;
+
+      E_ID E_NAME          DEPT           SALARY
+---------- --------------- ---------- ----------
+         1 SAYAN           ACCOUNTS         9000
+         2 AYAN            SDE1            19000
+         3 NAYAN           SDE2            20000
+         4 TRINAYAN        SDE3            30000
+         5 TRINAYANEE      SSDE            50000
+
+SQL>  SELECT MAX(SALARY) AS SECOND_HIGHEST_SALARY FROM EMPLOYEEID WHERE SALARY < (SELECT MAX(SALARY) FROM EMPLOYEEID);
+
+SECOND_HIGHEST_SALARY
+---------------------
+                30000
+
+SQL>  SELECT E_NAME FROM EMPLOYEEID WHERE SALARY = (SELECT MAX(SALARY) FROM EMPLOYEEID WHERE SALARY < (SELECT MAX(SALARY) FROM EMPLOYEEID));
+
+E_NAME
+---------------
+TRINAYAN
+
+SQL> SELECT E_NAME FROM EMPLOYEEID WHERE SALARY < (SELECT MAX(SALARY) FROM EMPLOYEEID);
+
+E_NAME
+---------------
+SAYAN
+AYAN
+NAYAN
+TRINAYAN
+
+SQL> SELECT MAX(SALARY) AS MAX_SALARY FROM EMPLOYEEID;
+
+MAX_SALARY
+----------
+     50000
+
+SQL>
+SQL> SELECT E_NAME FROM EMPLOYEEID WHERE SALARY = (SELECT MAX(SALARY) FROM EMPLOYEEID);
+
+E_NAME
+---------------
+TRINAYANEE
+
+SQL> SELECT DEPT FROM EMPLOYEEID GROUP BY DEPT HAVING COUNT(E_ID)<2;
+
+DEPT
+----------
+SDE2
+SSDE
+ACCOUNTS
+SDE3
+SDE1
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL>

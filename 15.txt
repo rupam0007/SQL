@@ -1,0 +1,269 @@
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Fri Apr 18 11:17:11 2025
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+SQL> conn b003
+Enter password:
+Connected.
+SQL> CREATE TABLE SALESMAN(S_ID INT,NAME VARCHAR(50),CITY VARCHAR(50),COMMISSION INT);
+
+Table created.
+
+SQL> CREATE TABLE CUSTOMER(C_ID INT,C_NAME VARCHAR(50),CITY VARCHAR(50),S_ID INT);
+CREATE TABLE CUSTOMER(C_ID INT,C_NAME VARCHAR(50),CITY VARCHAR(50),S_ID INT)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> CREATE TABLE CUSTOMER1(C_ID INT,C_NAME VARCHAR(50),CITY VARCHAR(50),S_ID INT);
+CREATE TABLE CUSTOMER1(C_ID INT,C_NAME VARCHAR(50),CITY VARCHAR(50),S_ID INT)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> CREATE TABLE CUSTOMER2(C_ID INT,C_NAME VARCHAR(50),CITY VARCHAR(50),S_ID INT);
+CREATE TABLE CUSTOMER2(C_ID INT,C_NAME VARCHAR(50),CITY VARCHAR(50),S_ID INT)
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> CREATE TABLE CUSTOMER_I(C_ID INT,C_NAME VARCHAR(50),CITY VARCHAR(50),S_ID INT);
+
+Table created.
+
+SQL> CREATE TABLE ORDERS(ORD_NO INT,P_AMOUNT INT,ORD_DATE DATE,C_ID INT,S_ID INT);
+
+Table created.
+
+SQL> INSERT INTO SALESMAN VALUES(5001,'NAIL KNITE','PARIS',15);
+
+1 row created.
+
+SQL> INSERT INTO SALESMAN VALUES(5002,'JAMES HOOG','NEW YORK',15);
+
+1 row created.
+
+SQL> INSERT INTO SALESMAN VALUES(5005,'PIT ALEX','LODON',13);
+
+1 row created.
+
+SQL> INSERT INTO SALESMAN VALUES(5006,'MC LYON','PARIS',14);
+
+1 row created.
+
+SQL> INSERT INTO SALESMAN VALUES(5007,'PAUL ADAM','ROME',13);
+
+1 row created.
+
+SQL> INSERT INTO SALESMAN VALUES(5003,'LAUSON HEN','BRAZIL',12);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER_I VALUES(3002,'NIKE RIMEDO','NEW YORK',100,5001);
+INSERT INTO CUSTOMER_I VALUES(3002,'NIKE RIMEDO','NEW YORK',100,5001)
+            *
+ERROR at line 1:
+ORA-00913: too many values
+
+
+SQL> CREATE TABLE CUSTOMER_INFO(C_ID INT,C_NAME VARCHAR(50),CITY VARCHAR(50),GRADE INT,S_ID INT);
+
+Table created.
+
+SQL> INSERT INTO CUSTOMER_INFO VALUES(3002,'NIKE RIMEDO','NEW YORK',100,5001);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER_INFO VALUES(3007,'BRAD DAVIS','NEW YORK',200,5005);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER_INFO VALUES(3005,'GRAHAM ZUSI','CALIFORNIYA',200,5002);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER_INFO VALUES(3004,'JULIAN GREEN','LONDON',300,5002);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER_INFO VALUES(3008,'FABIAN JOHONSON','PARIS',200,5006);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER_INFO VALUES(3010,'GEOFF CAMRON','BERLIN',100,5003);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER_INFO VALUES(3009,'JOZY ATTIDOR','MOSCOW',200,5007);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER_INFO VALUES(3003,'BRAD GUZAN','LONDON',100,5005);
+
+1 row created.
+
+SQL> INSERT INTO ORDERS VALUES(70008,17505760,'2012-09-18',3002,5001);
+INSERT INTO ORDERS VALUES(70008,17505760,'2012-09-18',3002,5001)
+                                         *
+ERROR at line 1:
+ORA-01861: literal does not match format string
+
+
+SQL> INSERT INTO ORDERS VALUES(70008,17505760,'2012-SEP-18',3002,5001);
+INSERT INTO ORDERS VALUES(70008,17505760,'2012-SEP-18',3002,5001)
+                                         *
+ERROR at line 1:
+ORA-01861: literal does not match format string
+
+
+SQL> ALTER TABLE ORDERS MODIFY ORD_DATE NUMBER(15);
+
+Table altered.
+
+SQL> INSERT INTO ORDERS VALUES(70008,17505760,'2012-09-18',3002,5001);
+INSERT INTO ORDERS VALUES(70008,17505760,'2012-09-18',3002,5001)
+                                         *
+ERROR at line 1:
+ORA-01722: invalid number
+
+
+SQL> INSERT INTO ORDERS VALUES(70008,17505760,2012-09-18,3002,5001);
+
+1 row created.
+
+SQL> INSERT INTO ORDERS VALUES(70010,1983,2012-10-10,3004,5006);
+
+1 row created.
+
+SQL> INSERT INTO ORDERS VALUES(70003,2480,2012-06-27,3009,5003);
+
+1 row created.
+
+SQL> INSERT INTO ORDERS VALUES(70012,250,2012-08-17,3008,5002);
+
+1 row created.
+
+SQL> INSERT INTO ORDERS VALUES(70011,75,2012-09-25,3003,5007);
+
+1 row created.
+
+SQL> INSERT INTO ORDERS VALUES(70013,3045,2012-10-10,3002,5001);
+
+1 row created.
+
+SQL> SELECT O.C_ID,O.P_AMOUNT FROM ORDERS O JOIN CUSTOMER_INFO C ON O.C_ID = C.C_ID;
+
+      C_ID   P_AMOUNT
+---------- ----------
+      3002       3045
+      3002   17505760
+      3004       1983
+      3008        250
+      3009       2480
+      3003         75
+
+6 rows selected.
+
+SQL> SELECT C.CITY,O.ORD_DATE FROM ORDERS O JOIN CUSTOMER_INFO C ON O.C_ID = C.C_ID;
+
+CITY                                                 ORD_DATE
+-------------------------------------------------- ----------
+NEW YORK                                                 1992
+NEW YORK                                                 1985
+LONDON                                                   1992
+PARIS                                                    1987
+MOSCOW                                                   1979
+LONDON                                                   1978
+
+6 rows selected.
+
+SQL> SELECT S.NAME,S.COMMISSION,O.P_AMOUNT FROM ORDERS O JOIN SALESMAN S ON O.S_ID = S.S_ID;
+
+NAME                                               COMMISSION   P_AMOUNT
+-------------------------------------------------- ---------- ----------
+NAIL KNITE                                                 15       3045
+NAIL KNITE                                                 15   17505760
+JAMES HOOG                                                 15        250
+MC LYON                                                    14       1983
+PAUL ADAM                                                  13         75
+LAUSON HEN                                                 12       2480
+
+6 rows selected.
+
+SQL> SELCT S.NAME,S.CITY,O.ORD_DATE FROM ORDERS O JOIN SALESMAN S ON O.S_ID = S.S_ID;
+SP2-0734: unknown command beginning "SELCT S.NA..." - rest of line ignored.
+SQL> SELECT S.NAME,S.CITY,O.ORD_DATE FROM ORDERS O JOIN SALESMAN S ON O.S_ID = S.S_ID;
+
+NAME
+--------------------------------------------------
+CITY                                                 ORD_DATE
+-------------------------------------------------- ----------
+NAIL KNITE
+PARIS                                                    1992
+
+NAIL KNITE
+PARIS                                                    1985
+
+JAMES HOOG
+NEW YORK                                                 1987
+
+
+NAME
+--------------------------------------------------
+CITY                                                 ORD_DATE
+-------------------------------------------------- ----------
+MC LYON
+PARIS                                                    1992
+
+PAUL ADAM
+ROME                                                     1978
+
+LAUSON HEN
+BRAZIL                                                   1979
+
+
+6 rows selected.
+
+SQL> SET LINE 500;
+SQL> SELECT S.NAME,S.CITY,O.ORD_DATE FROM ORDERS O JOIN SALESMAN S ON O.S_ID = S.S_ID;
+
+NAME                                               CITY                                                 ORD_DATE
+-------------------------------------------------- -------------------------------------------------- ----------
+NAIL KNITE                                         PARIS                                                    1992
+NAIL KNITE                                         PARIS                                                    1985
+JAMES HOOG                                         NEW YORK                                                 1987
+MC LYON                                            PARIS                                                    1992
+PAUL ADAM                                          ROME                                                     1978
+LAUSON HEN                                         BRAZIL                                                   1979
+
+6 rows selected.
+
+SQL> SELECT C.GRADE,O.P_AMOUNT FROM ORDERS O JOIN CUSTOMER C ON O.C_ID = C.C_ID;
+SELECT C.GRADE,O.P_AMOUNT FROM ORDERS O JOIN CUSTOMER C ON O.C_ID = C.C_ID
+       *
+ERROR at line 1:
+ORA-00904: "C"."GRADE": invalid identifier
+
+
+SQL> SELECT C.GRADE,O.P_AMOUNT FROM ORDERS O JOIN CUSTOMER_INFO C ON O.C_ID = C.C_ID;
+
+     GRADE   P_AMOUNT
+---------- ----------
+       100       3045
+       100   17505760
+       300       1983
+       200        250
+       200       2480
+       100         75
+
+6 rows selected.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL>
